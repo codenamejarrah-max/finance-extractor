@@ -4,6 +4,7 @@ import pandas as pd
 import time
 import io
 import threading
+from datetime import datetime
 from dotenv import load_dotenv
 from extractor import extract_multiple_api
 
@@ -213,9 +214,10 @@ if uploaded_files:
                     amt_idx = edited_df.columns.get_loc("Amount")
                     worksheet.set_column(amt_idx, amt_idx, 15, money_fmt)
                     
+            current_time = datetime.now().strftime("%Y%m%d_%H%M")
             st.download_button(
                 label="📥 Download as Excel (.xlsx)",
                 data=buffer.getvalue(),
-                file_name="transactions.xlsx",
+                file_name=f"Transaction_{current_time}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
